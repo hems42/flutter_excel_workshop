@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:open_file/open_file.dart';
 import 'package:universal_html/html.dart' show AnchorElement;
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'dart:convert';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final Worksheet sheet = workbook.worksheets[1];
     int i = 1;
     sheet.getRangeByIndex(2, 1, 10000, 3).cells.forEach((element) {
-      element.setText("ananın amı $i");
+      element.setText("ananin ami $i");
       i++;
     });
 
@@ -99,50 +99,120 @@ class _MyHomePageState extends State<MyHomePage> {
     // Create a new PDF document.
     final PdfDocument document = PdfDocument();
     PdfPageSettings settings = PdfPageSettings();
-    PdfFont fontNormal = PdfStandardFont(PdfFontFamily.helvetica, 12);
-    PdfFont fontInce = PdfStandardFont(PdfFontFamily.helvetica, 9);
+    final Uint8List fontData = File('arial.ttf').readAsBytesSync();
+    final PdfFont font = PdfTrueTypeFont(fontData, 12);
+    PdfFont fontNormalBold = PdfStandardFont(
+      PdfFontFamily.helvetica, 12,
+    style: PdfFontStyle.bold);
+    PdfFont fontInceBold = PdfStandardFont(PdfFontFamily.helvetica, 9,
+    style: PdfFontStyle.bold);
     PdfPen pdfPen = PdfPen(
       PdfColor(0, 0, 0),
       width: 0.8,
     );
+
+    PdfFont fontInceNormal = PdfStandardFont(PdfFontFamily.helvetica, 9);
+  
     PdfSolidBrush pdfSolidBrush = PdfSolidBrush(PdfColor(0, 0, 0));
 
 // Add a PDF page and draw text.
     PdfPage page1 = document.pages.add();
     PdfGraphics graphics1 = page1.graphics;
     graphics1.drawString(
-        'Barthel Gunluk Yasam Aktiviteleri Indeksi', fontNormal,
+        'Barthel Günlük Yasam Aktiviteleri Indeksi', font,
         brush: pdfSolidBrush, bounds: Rect.fromLTWH(160, 5, 0, 0));
 
     graphics1.drawLine(pdfPen, Offset(5, 25), Offset(570, 25));
 
       graphics1.drawString(
-        'Parametre', fontInce,
+        'Parametre', fontInceBold,
         brush: pdfSolidBrush, bounds: Rect.fromLTWH(25, 32, 0, 0));
 
          graphics1.drawString(
-        'Degerlendirme', fontInce,
+        'Degerlendirme', fontInceBold,
         brush: pdfSolidBrush, bounds: Rect.fromLTWH(155, 32, 0, 0));
 
         graphics1.drawString(
-        'Puan', fontInce,
+        'Puan', fontInceBold,
         brush: pdfSolidBrush, bounds: Rect.fromLTWH(395, 32, 0, 0));
 
           graphics1.drawString(
-        'Hastanin \n Puani', fontInce,
-        brush: pdfSolidBrush, bounds: Rect.fromLTWH(465, 29, 0, 0));
+        'Hastanin \n Puani', fontInceBold,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(465, 27, 0, 0));
 
   graphics1.drawLine(pdfPen, Offset(5, 50), Offset(570, 50));
+
+   //--------------
+
+    graphics1.drawString(
+        'Beslenme', fontInceBold,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(25, 75, 0, 0));
+
+         graphics1.drawString(
+        'Tam bagimsiz yemek yemek icin gerekli aletleri \n kullanabilir.', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(155, 52, 0, 0));
+
+        graphics1.drawString(
+        '10', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(400, 55, 0, 0));
+
+          graphics1.drawString(
+        'X', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(475, 52, 0, 0));
+
+graphics1.drawLine(pdfPen, Offset(155, 75), Offset(570, 75));
+        //------------------
+          graphics1.drawString(
+        'Bir miktar yardima ihtiyac duyar.', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(155, 78, 0, 0));
+
+        graphics1.drawString(
+        '5', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(403, 78, 0, 0));
+
+          graphics1.drawString(
+        'X', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(475, 78, 0, 0));
+
+         graphics1.drawLine(pdfPen, Offset(155, 90), Offset(570, 90));
+
+     //------------------
+          graphics1.drawString(
+        'Tam Bagimlidir.', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(155, 92, 0, 0));
+
+        graphics1.drawString(
+        '0', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(403, 92, 0, 0));
+
+          graphics1.drawString(
+        'X', fontInceNormal,
+        brush: pdfSolidBrush, bounds: Rect.fromLTWH(475, 92, 0, 0));
+
+        // graphics1.drawLine(pdfPen, Offset(155, 103), Offset(570, 103));
+
+
+
+  //-------------------
+   graphics1.drawLine(pdfPen, Offset(5, 105), Offset(570, 105));
+
+
+
+
+
+
+
+
     graphics1.rotateTransform(-90);
 
-    graphics1.drawString("mobilite", fontNormal,
+    graphics1.drawString("mobilite", fontInceNormal,
         bounds: const Rect.fromLTWH(-400, 100, 150, 20));
 
     graphics1.drawLine(pdfPen, Offset(-400, 115), Offset(-355, 115));
 
     graphics1.rotateTransform(90);
 
-    graphics1.drawString("mobilite", fontNormal,
+    graphics1.drawString("mobilite", fontInceNormal,
         bounds: const Rect.fromLTWH(400, 200, 150, 20));
     graphics1.drawLine(pdfPen, Offset(400, 225), Offset(455, 225));
 
