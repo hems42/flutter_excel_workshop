@@ -38,8 +38,7 @@ class EshActivityIndex {
   late int _mesaneBakimiParametresi;
   late int _tuvaletKullanimiParametresi;
   late int _tekerlekliSandalyedenTransferParametresi;
-  late int _mobiliteDuzgunYuzeydeYurumeParametresi;
-  late int _mobiliteTekelekliSandalyeKullanabilmeParametresi;
+  late int _mobiliteParametresi;
   late int _merdivenInipCikmaParametresi;
 
   // -- getter setter
@@ -134,19 +133,9 @@ class EshActivityIndex {
       _tekerlekliSandalyedenTransferParametresi =
           tekerlekliSandalyedenTransferParametresi;
 
-  int get mobiliteDuzgunYuzeydeYurumeParametresi =>
-      _mobiliteDuzgunYuzeydeYurumeParametresi;
-  set mobiliteDuzgunYuzeydeYurumeParametresi(
-          int mobiliteDuzgunYuzeydeYurumeParametresi) =>
-      _mobiliteDuzgunYuzeydeYurumeParametresi =
-          mobiliteDuzgunYuzeydeYurumeParametresi;
-
-  int get mobiliteTekelekliSandalyeKullanabilmeParametresi =>
-      _mobiliteTekelekliSandalyeKullanabilmeParametresi;
-  set mobiliteTekelekliSandalyeKullanabilmeParametresi(
-          int mobiliteTekelekliSandalyeKullanabilmeParametresi) =>
-      _mobiliteTekelekliSandalyeKullanabilmeParametresi =
-          mobiliteTekelekliSandalyeKullanabilmeParametresi;
+  int get mobiliteParametresi => _mobiliteParametresi;
+  set mobiliteParametresi(int mobiliteParametresi) =>
+      _mobiliteParametresi = mobiliteParametresi;
 
   int get merdivenInipCikmaParametresi => _merdivenInipCikmaParametresi;
   set merdivenInipCikmaParametresi(int merdivenInipCikmaParametresi) =>
@@ -155,14 +144,39 @@ class EshActivityIndex {
   //-- hesaplamalar
 
   int indexToplamPuanHesapla() {
-    return 0;
+    int toplam = _beslenmeParametresi +
+        _yikanmaParametresi +
+        _kendineBakimParametresi +
+        _giyipSoyunmaParametresi +
+        _bagirsakBakimiParametresi +
+        _mesaneBakimiParametresi +
+        _tuvaletKullanimiParametresi +
+        _tekerlekliSandalyedenTransferParametresi +
+        _mobiliteParametresi +
+        _merdivenInipCikmaParametresi;
+    return toplam;
   }
 
   String indexDurumDegerlendir() {
-    return "";
+    String sonuc = "";
+    int puan = indexToplamPuanHesapla();
+    if (puan < 21) {
+      sonuc = "TAM BAĞIMLI";
+    } else if (puan < 62 && puan > 21) {
+      sonuc = "İLERİ DERECEDE BAĞIMLI";
+    } else if (puan < 91 && puan > 61) {
+      sonuc = "ORTA DERECEDE BAĞIMLI";
+    } else if (puan < 100 && puan > 91) {
+      sonuc = "HAFİF DERECEDE BAĞIMLI";
+    } else if (puan == 100) {
+      sonuc = "TAM BAĞIMSIZ";
+    }
+    return sonuc;
   }
 
   String hastaAdresiDerle() {
-    return "";
+    String adres = '$hastaAdresMahalle mah.  $hastaAdresSokakCadde  sok/cad.   no : $hastaAdresKapiNo \n'
+        '$hastaAdresIl / $hastaAdresIlce ';
+    return adres;
   }
 }

@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, prefer_final_fields
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_excel_workshop/esh_activity_index.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class PdfManager {
@@ -77,8 +80,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(400, 55, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 55, 0, 0));
+    // graphics1.drawString(_tick, _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 55, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 75), const Offset(570, 75));
     //------------------
@@ -88,8 +90,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(403, 78, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 78, 0, 0));
+    // graphics1.drawString(_tick, _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 78, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 90), const Offset(570, 90));
 
@@ -100,12 +101,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 92, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 92, 0, 0));
+    // graphics1.drawString(_tick, _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 92, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 105), const Offset(570, 105));
 
-    //-------------------
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect;
+    switch (activityIndex.beslenmeParametresi) {
+      case 10:
+        rect = const Rect.fromLTWH(475, 55, 0, 0);
+        break;
+      case 5:
+        rect = const Rect.fromLTWH(475, 78, 0, 0);
+        break;
+      case 0:
+        rect = const Rect.fromLTWH(475, 92, 0, 0);
+        break;
+      default:
+        rect = const Rect.fromLTWH(475, 55, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect);
 
     //-------------- yıkanma bölümü
 
@@ -121,8 +139,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 110, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 110, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 110, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 130), const Offset(570, 130));
 
@@ -134,10 +151,26 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 132, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 132, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 132, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 142), const Offset(570, 142));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect1;
+    switch (activityIndex.yikanmaParametresi) {
+      case 5:
+        rect1 = const Rect.fromLTWH(475, 110, 0, 0);
+        break;
+      case 0:
+        rect1 = const Rect.fromLTWH(475, 132, 0, 0);
+        break;
+      default:
+        rect1 = const Rect.fromLTWH(475, 110, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect1);
 
 //-------------- kendine bakım bölümü
 
@@ -153,8 +186,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 148, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 148, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 148, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 165), const Offset(570, 165));
 
@@ -167,10 +199,26 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 168, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 168, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal,brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 168, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 180), const Offset(570, 180));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect2;
+    switch (activityIndex.kendineBakimParametresi) {
+      case 5:
+        rect2 = const Rect.fromLTWH(475, 148, 0, 0);
+        break;
+      case 0:
+        rect2 = const Rect.fromLTWH(475, 168, 0, 0);
+        break;
+      default:
+        rect2 = const Rect.fromLTWH(475, 148, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect2);
 
 //-------------- Giyinip soyunma bölümü
 
@@ -186,8 +234,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 182, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 182, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 182, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 194), const Offset(570, 194));
 
@@ -202,8 +249,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 200, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 200, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 200, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 220), const Offset(570, 220));
 
@@ -215,10 +261,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 222, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 222, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 222, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 234), const Offset(570, 234));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect3;
+    switch (activityIndex.giyipSoyunmaParametresi) {
+      case 10:
+        rect3 = const Rect.fromLTWH(475, 182, 0, 0);
+        break;
+      case 5:
+        rect3 = const Rect.fromLTWH(475, 200, 0, 0);
+        break;
+      case 0:
+        rect3 = const Rect.fromLTWH(475, 222, 0, 0);
+        break;
+      default:
+        rect3 = const Rect.fromLTWH(475, 182, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect3);
 
 //-------------- Bağırsak Bakımı bölümü
 
@@ -234,8 +299,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 240, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 240, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 240, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 260), const Offset(570, 260));
 
@@ -250,8 +314,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 266, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 266, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 266, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 286), const Offset(570, 286));
 
@@ -263,10 +326,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 288, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 288, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 288, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 300), const Offset(570, 300));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect4;
+    switch (activityIndex.bagirsakBakimiParametresi) {
+      case 10:
+        rect4 = const Rect.fromLTWH(475, 240, 0, 0);
+        break;
+      case 5:
+        rect4 = const Rect.fromLTWH(475, 266, 0, 0);
+        break;
+      case 0:
+        rect4 = const Rect.fromLTWH(475, 288, 0, 0);
+        break;
+      default:
+        rect4 = const Rect.fromLTWH(475, 240, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect4);
 
 //-------------- Mesane Bakımı bölümü
 
@@ -282,8 +364,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 310, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 310, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 310, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 334), const Offset(570, 334));
 
@@ -298,8 +379,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 340, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 340, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 340, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 360), const Offset(570, 360));
 
@@ -314,10 +394,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 366, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 366, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 366, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 386), const Offset(570, 386));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect5;
+    switch (activityIndex.mesaneBakimiParametresi) {
+      case 10:
+        rect5 = const Rect.fromLTWH(475, 310, 0, 0);
+        break;
+      case 5:
+        rect5 = const Rect.fromLTWH(475, 340, 0, 0);
+        break;
+      case 0:
+        rect5 = const Rect.fromLTWH(475, 366, 0, 0);
+        break;
+      default:
+        rect5 = const Rect.fromLTWH(475, 310, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect5);
 
 //-------------- Tuvalte Kullanımı bölümü
 
@@ -333,8 +432,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 392, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 392, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 392, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 412), const Offset(570, 412));
 
@@ -349,8 +447,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 418, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 418, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 418, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 438), const Offset(570, 438));
 
@@ -362,10 +459,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 440, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 440, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 440, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 452), const Offset(570, 452));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect6;
+    switch (activityIndex.tuvaletKullanimiParametresi) {
+      case 10:
+        rect6 = const Rect.fromLTWH(475, 392, 0, 0);
+        break;
+      case 5:
+        rect6 = const Rect.fromLTWH(475, 418, 0, 0);
+        break;
+      case 0:
+        rect6 = const Rect.fromLTWH(475, 440, 0, 0);
+        break;
+      default:
+        rect6 = const Rect.fromLTWH(475, 392, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect6);
 
 //-------------- Tekerlekli Sandalyeden Yatağa ve Tersi Transferler bölümü
 
@@ -381,8 +497,7 @@ class PdfManager {
     graphics1.drawString('15', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 454, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 454, 0, 0));
+    //  graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 454, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 466), const Offset(570, 466));
 
@@ -397,8 +512,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 472, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 472, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 472, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 492), const Offset(570, 492));
 
@@ -413,8 +527,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 498, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 498, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 498, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 518), const Offset(570, 518));
 
@@ -426,10 +539,32 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 520, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 520, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 520, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 532), const Offset(570, 532));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect7;
+    switch (activityIndex.tekerlekliSandalyedenTransferParametresi) {
+      case 15:
+        rect7 = const Rect.fromLTWH(475, 454, 0, 0);
+        break;
+      case 10:
+        rect7 = const Rect.fromLTWH(475, 472, 0, 0);
+        break;
+      case 5:
+        rect7 = const Rect.fromLTWH(475, 498, 0, 0);
+        break;
+      case 0:
+        rect7 = const Rect.fromLTWH(475, 520, 0, 0);
+        break;
+      default:
+        rect7 = const Rect.fromLTWH(475, 472, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect7);
 
     // ------------------ Mobilite Yan Yazısı
     graphics1.rotateTransform(-90);
@@ -456,8 +591,7 @@ class PdfManager {
     graphics1.drawString('15', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 550, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 550, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal,  brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 550, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 585), const Offset(570, 585));
 
@@ -472,8 +606,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 591, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 591, 0, 0));
+    //  graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 591, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(25, 611), const Offset(570, 611));
 
@@ -493,8 +626,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 622, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 622, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 622, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 647), const Offset(570, 647));
 
@@ -507,10 +639,32 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 649, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 649, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 649, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 661), const Offset(570, 661));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect8;
+    switch (activityIndex.mobiliteParametresi) {
+      case 15:
+        rect8 = const Rect.fromLTWH(475, 550, 0, 0);
+        break;
+      case 10:
+        rect8 = const Rect.fromLTWH(475, 591, 0, 0);
+        break;
+      case 5:
+        rect8 = const Rect.fromLTWH(475, 622, 0, 0);
+        break;
+      case 0:
+        rect8 = const Rect.fromLTWH(475, 649, 0, 0);
+        break;
+      default:
+        rect8 = const Rect.fromLTWH(475, 550, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect8);
 
     //-------------- Merdiven İnip Çıkma bölümü
 
@@ -526,8 +680,7 @@ class PdfManager {
     graphics1.drawString('10', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(402, 667, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 667, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 667, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 687), const Offset(570, 687));
 
@@ -542,8 +695,7 @@ class PdfManager {
     graphics1.drawString('5', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 693, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 693, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 693, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(155, 713), const Offset(570, 713));
 
@@ -555,10 +707,29 @@ class PdfManager {
     graphics1.drawString('0', _fontArialNormal,
         brush: pdfSolidBrush, bounds: const Rect.fromLTWH(404, 715, 0, 0));
 
-    graphics1.drawString('X', _fontArialNormal,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 715, 0, 0));
+    // graphics1.drawString('X', _fontArialNormal, brush: pdfSolidBrush, bounds: const Rect.fromLTWH(475, 715, 0, 0));
 
     graphics1.drawLine(pdfPen, const Offset(5, 727), const Offset(570, 727));
+
+    //------------------- indeks değerlendirme kısmı
+
+    Rect? rect9;
+    switch (activityIndex.merdivenInipCikmaParametresi) {
+      case 10:
+        rect9 = const Rect.fromLTWH(475, 667, 0, 0);
+        break;
+      case 5:
+        rect9 = const Rect.fromLTWH(475, 693, 0, 0);
+        break;
+      case 0:
+        rect9 = const Rect.fromLTWH(475, 715, 0, 0);
+        break;
+      default:
+        rect9 = const Rect.fromLTWH(475, 667, 0, 0);
+    }
+
+    graphics1.drawString(_tick, _fontArialNormal,
+        brush: pdfSolidBrush, bounds: rect9);
 
     // --- Sayfa 2
 
@@ -573,27 +744,39 @@ class PdfManager {
 
     // --- Hasta Adı Soyadı Bölümü
 
-    graphics2.drawString('Hastanın Adı Soyadı : OSMAN BARUTÇU', _fontArialBold,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(2, 80, 0, 0));
+    graphics2.drawString(
+        'Hastanın Adı Soyadı : ${activityIndex.hastaAdi.toUpperCase()}  ${activityIndex.hastaSoyadi.toUpperCase()}',
+        _fontArialBold,
+        brush: pdfSolidBrush,
+        bounds: const Rect.fromLTWH(2, 80, 0, 0));
 
     // ---- tarih saat bölümü
-    graphics2.drawString('Tarih/Saat : 20.12.2022 -/- 00:48', _fontArialBold,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(2, 100, 0, 0));
+    graphics2.drawString(
+        'Tarih/Saat : ${activityIndex.islemTarih} - / -  ${activityIndex.islemSaati}',
+        _fontArialBold,
+        brush: pdfSolidBrush,
+        bounds: const Rect.fromLTWH(2, 100, 0, 0));
 
     // ---- hasta yakını adı soyadı  bölümü
     graphics2.drawString(
-        'Bilgi Alınan Kişi Adı-Soyadı : İBRAHİM BARUTÇU', _fontArialBold,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(2, 120, 0, 0));
+        'Bilgi Alınan Kişi Adı-Soyadı : ${activityIndex.hastaYakiniAdi.toUpperCase()}  ${activityIndex.hastaYakiniSoyadi.toUpperCase()}',
+        _fontArialBold,
+        brush: pdfSolidBrush,
+        bounds: const Rect.fromLTWH(2, 120, 0, 0));
 
     // ---- hasta yakını yakınlık derecesi  bölümü
     graphics2.drawString(
-        'Bilgi Alınan Kişinin Yakınlığı : OĞLU', _fontArialBold,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(2, 140, 0, 0));
+        'Bilgi Alınan Kişinin Yakınlığı : ${activityIndex.hastaYakinlikDerecesi.toUpperCase()}',
+        _fontArialBold,
+        brush: pdfSolidBrush,
+        bounds: const Rect.fromLTWH(2, 140, 0, 0));
 
     // ---- hasta indeks puanı toplamı bölümü
     graphics2.drawString(
-        'Hastanın Toplam Puanı (0-100) * : 100 \n', _fontArialBold,
-        brush: pdfSolidBrush, bounds: const Rect.fromLTWH(2, 160, 0, 0));
+        'Hastanın Toplam Puanı (0-100) * : ${activityIndex.indexToplamPuanHesapla()} \n',
+        _fontArialBold,
+        brush: pdfSolidBrush,
+        bounds: const Rect.fromLTWH(2, 160, 0, 0));
 
     //-------------
     graphics2.drawString(
@@ -603,7 +786,7 @@ class PdfManager {
     // tablo kısmı
     final PdfGrid grid = PdfGrid();
     grid.style.font = _fontArialNormal;
-    String tikIsareti = ' \t \t \t         X';
+    String tikIsareti = ' \t \t \t         $_tick';
 // Specify the grid column count.
     grid.columns.add(count: 2);
 // Add a grid header row.
@@ -612,25 +795,41 @@ class PdfManager {
     headerRow.cells[1].value = 'Durum Değerlendirmesi**';
 // Set header font.
 // Add rows to the grid.
-    PdfGridRow row = grid.rows.add();
-    row.cells[0].value = '  0-20: Tam Bağımlı';
-    row.cells[1].value = tikIsareti;
+    PdfGridRow row1 = grid.rows.add();
+    row1.cells[0].value = '  0-20: Tam Bağımlı';
+    // row1.cells[1].value = tikIsareti;
 // Add next row.
-    row = grid.rows.add();
-    row.cells[0].value = '  21-61: İleri Derecede Bağımlı';
-    row.cells[1].value = tikIsareti;
+    PdfGridRow row2 = grid.rows.add();
+    row2.cells[0].value = '  21-61: İleri Derecede Bağımlı';
+    // row2.cells[1].value = tikIsareti;
 // Add next row.
-    row = grid.rows.add();
-    row.cells[0].value = '  62-90: Orta Derecede Bağımlı';
-    row.cells[1].value = tikIsareti;
+    PdfGridRow row3 = grid.rows.add();
+    row3.cells[0].value = '  62-90: Orta Derecede Bağımlı';
+    // row3.cells[1].value = tikIsareti;
     // Add next row.
-    row = grid.rows.add();
-    row.cells[0].value = '  91-99: Hafif Derecede Bağımlı';
-    row.cells[1].value = tikIsareti;
+    PdfGridRow row4 = grid.rows.add();
+    row4.cells[0].value = '  91-99: Hafif Derecede Bağımlı';
+    // row4.cells[1].value = tikIsareti;
     // Add next row.
-    row = grid.rows.add();
-    row.cells[0].value = '  100: Tam Bağımsız';
-    row.cells[1].value = tikIsareti;
+    PdfGridRow row5 = grid.rows.add();
+    row5.cells[0].value = '  100: Tam Bağımsız';
+    // row5.cells[1].value = tikIsareti;
+
+    // tablo değerlendirme seçim kısmı
+
+    int puan = activityIndex.indexToplamPuanHesapla();
+    if (puan < 21) {
+      row1.cells[1].value = tikIsareti;
+    } else if (puan < 62 && puan > 21) {
+      row2.cells[1].value = tikIsareti;
+    } else if (puan < 91 && puan > 61) {
+      row3.cells[1].value = tikIsareti;
+    } else if (puan < 100 && puan > 91) {
+      row4.cells[1].value = tikIsareti;
+    } else if (puan == 100) {
+      row5.cells[1].value = tikIsareti;
+    }
+
 // Set grid format.
     grid.style.cellPadding = PdfPaddings(left: 5, top: 5);
 // Draw table in the PDF page.
@@ -695,5 +894,67 @@ class PdfManager {
     return document;
   }
 
-  Future<void> saveAllPdf() async {}
+  Future<void> saveAllPdf(
+      {required String folderName,
+      required List<PdfDocument> allPdf,
+      required List<EshActivityIndex> allActivtyIndex,
+      Function(int progress)? onProgress}) async {
+    String folder = "";
+    await getExternalStorageDirectory()
+        .then((value) => folder = '${value!.path} / $folderName');
+
+    Directory directory = Directory(folder);
+
+    if (!await directory.exists()) {
+      directory.create();
+    }
+
+    int i = 0;
+    PdfDocument document;
+    allActivtyIndex.forEach((element) async {
+      final File file =
+          File('$folder/${element.hastaAdi} ${element.hastaSoyadi}.pdf');
+
+      document = allPdf.elementAt(i);
+      final List<int> bytes = await document.save();
+      document.dispose();
+      await file.writeAsBytes(bytes, flush: true);
+      if (onProgress != null) {
+        onProgress.call(i);
+      }
+      i++;
+    });
+  }
+
+  EshActivityIndex getEshModel() {
+    EshActivityIndex activityIndex = EshActivityIndex();
+
+    activityIndex.hastaAdi = "NAZLI";
+    activityIndex.hastaSoyadi = "YANDAN YEMİŞ";
+    activityIndex.hastaTcKimlikNo = "44444444444";
+    activityIndex.hastaYakiniAdi = "HACER";
+    activityIndex.hastaYakiniSoyadi = "ARKADAN VERMİŞ";
+    activityIndex.hastaYakinlikDerecesi = "SEVGİLİSİ";
+    activityIndex.islemTarih = "21.12.2022";
+    activityIndex.islemSaati = "14:25";
+    activityIndex.hastaAdresIl = "KONYA";
+    activityIndex.hastaAdresIlce = "KARAPINAR";
+    activityIndex.hastaAdresMahalle = "ZAFER";
+    activityIndex.hastaAdresSokakCadde = "VERENGÜL";
+    activityIndex.hastaAdresKapiNo = "31";
+    activityIndex.hastaAdresAciklama = "SEVİŞME ADRESLERİ";
+    activityIndex.hastaTelNo = "0 535 331 31 31";
+    activityIndex.beslenmeParametresi = 10;
+    activityIndex.yikanmaParametresi = 5;
+    activityIndex.kendineBakimParametresi = 5;
+    activityIndex.giyipSoyunmaParametresi = 10;
+    activityIndex.bagirsakBakimiParametresi = 10;
+    activityIndex.mesaneBakimiParametresi = 10;
+    activityIndex.tuvaletKullanimiParametresi = 0;
+    activityIndex.tekerlekliSandalyedenTransferParametresi = 0;
+    activityIndex.mobiliteParametresi = 0;
+    activityIndex.merdivenInipCikmaParametresi = 0;
+
+    return activityIndex;
+  }
 }

@@ -40,7 +40,6 @@ dependencies:
   path_provider: ^2.0.11
   syncfusion_flutter_xlsio: ^20.3.61-beta
   universal_html: ^2.0.8
-  file_picker: ^1.10.0
   syncfusion_flutter_pdf: ^20.3.61
   excel: ^2.0.1
 dev_dependencies:

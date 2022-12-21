@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_excel_workshop/esh_activity_index.dart';
 import 'package:flutter_excel_workshop/pdf_manager.dart';
@@ -70,18 +69,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
               await a.populateInstances();
               var document =
-                  a.getPdfDocumentByEshActivityIndex(EshActivityIndex());
+                  a.getPdfDocumentByEshActivityIndex(a.getEshModel());
 
               final List<int> bytes = await document.save();
 
               document.dispose();
 
-             String pathFolder = 'C:\Users\eflat\OneDrive\Masaüstü\Output.pdf';
-
-             final File file = File(pathFolder);
-                await file.writeAsBytes(bytes, flush: true); 
+              String folder = "";
+              await getExternalStorageDirectory()
+                  .then((value) => folder = value!.path);
 
             
+             String pathFolder = '$folder/Output.pdf';
+
+                final File file = File(pathFolder);
+                await file.writeAsBytes(bytes, flush: true);
+                OpenFile.open(file.path);
             }),
       ),
     );
