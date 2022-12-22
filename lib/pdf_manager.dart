@@ -896,34 +896,49 @@ class PdfManager {
 
   Future<void> saveAllPdf(
       {required String folderName,
-      required List<PdfDocument> allPdf,
       required List<EshActivityIndex> allActivtyIndex,
       Function(int progress)? onProgress}) async {
     String folder = "";
     await getExternalStorageDirectory()
-        .then((value) => folder = '${value!.path} / $folderName');
+        .then((value) => folder = '${value!.path}/$folderName');
 
     Directory directory = Directory(folder);
 
     if (!await directory.exists()) {
-      directory.create();
+      await directory.create();
     }
 
-    int i = 0;
     PdfDocument document;
-    allActivtyIndex.forEach((element) async {
-      final File file =
-          File('$folder/${element.hastaAdi} ${element.hastaSoyadi}.pdf');
-
-      document = allPdf.elementAt(i);
-      final List<int> bytes = await document.save();
-      document.dispose();
+    List<int> bytes;
+    File file;
+    int b = 1;
+    int length = allActivtyIndex.length;
+    EshActivityIndex element;
+    for (int i = 0; i < length; i++) {
+      element = allActivtyIndex.elementAt(i);
+      file = File(
+          '$folder/${element.hastaAdi}_${element.hastaSoyadi}_${element.hastaTcKimlikNo}.pdf');
+      document = getPdfDocumentByEshActivityIndex(element);
+      bytes = await document.save();
+      //  document.dispose();
       await file.writeAsBytes(bytes, flush: true);
       if (onProgress != null) {
-        onProgress.call(i);
+        onProgress.call(((b*100)/length).round());
+        b++;
       }
-      i++;
-    });
+    }
+  }
+
+  List<File> _getFilesFromEshActivities(
+      {required List<EshActivityIndex> allActivities,
+      required String folderName}) {
+    List<File> allFiles = [];
+    for (var element in allActivities) {
+      allFiles.add(
+          File('$folderName/${element.hastaAdi} ${element.hastaSoyadi}.pdf'));
+    }
+
+    return allFiles;
   }
 
   EshActivityIndex getEshModel() {

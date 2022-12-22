@@ -1,6 +1,8 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_excel_workshop/esh_activity_index.dart';
 import 'package:flutter_excel_workshop/pdf_manager.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
@@ -9,6 +11,8 @@ import 'package:universal_html/html.dart' show AnchorElement;
 import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
 import 'dart:convert';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+
+import 'circle_progre_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +62,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double arttir(double i) {
+    return i;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,20 +79,32 @@ class _MyHomePageState extends State<MyHomePage> {
               var document =
                   a.getPdfDocumentByEshActivityIndex(a.getEshModel());
 
-              final List<int> bytes = await document.save();
+              List<EshActivityIndex> indexList = [];
 
-              document.dispose();
+              for (int i = 0; i < 50; i++) {
+                indexList.add(a.getEshModel()..hastaTcKimlikNo = "00000000$i");
+              }
 
-              String folder = "";
-              await getExternalStorageDirectory()
-                  .then((value) => folder = value!.path);
+             FilePickerResult? result = await FilePicker.platform.pickFiles();
 
-            
-             String pathFolder = '$folder/Output.pdf';
+if (result != null) {
+  PlatformFile file = result.files.first;
 
-                final File file = File(pathFolder);
-                await file.writeAsBytes(bytes, flush: true);
-                OpenFile.open(file.path);
+  print(file.name);
+  print(file.bytes);
+  print(file.size);
+  print(file.extension);
+  print(file.path);
+} else {
+  // User canceled the picker
+}
+
+              /* await a.saveAllPdf(
+                  folderName: "indexSonuçlarıKlasörü",
+                  allActivtyIndex: indexList,
+                  onProgress: (progress) =>
+                 // pd.update(value:  progress));
+                      print("anlık dosya sayısı $progress"));*/
             }),
       ),
     );
@@ -864,4 +884,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return PdfTrueTypeFont(a.buffer.asUint8List(a.offsetInBytes), fontSize);
   }
+
+  void _showDialog(BuildContext context) {
+    ValueNotifier<double> notifier = ValueNotifier(0.0);
+    double i = 0.0;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 15,
+          // contentPadding: EdgeInsets.all(50),
+          alignment: Alignment.center,
+          backgroundColor: Colors.grey,
+          title: const Text("Lütfen bekleyiniz..."),
+          content: Center(child: ValueNotifierExample(valueNotifier: notifier)),
+        );
+      },
+    );
+  }
+
+  void progress() {
+    ProgressDialog pd = ProgressDialog(context: context);
+    pd.show(
+        elevation: 15,
+        progressBgColor: Colors.red,
+        borderRadius: 35,
+        valueFontWeight: FontWeight.bold,
+        valueColor: Colors.black,
+        max: 100,
+        msg: "Dosyalar Oluşturuluyor...",
+        completed: Completed(
+            completedMsg: "Dosyalar Başarıyla Oluşturuldu",
+            completionDelay: 2000));
+  }
+
+  void dene() {}
 }

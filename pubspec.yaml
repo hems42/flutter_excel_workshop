@@ -42,6 +42,9 @@ dependencies:
   universal_html: ^2.0.8
   syncfusion_flutter_pdf: ^20.3.61
   excel: ^2.0.1
+  simple_circular_progress_bar: ^1.0.2
+  sn_progress_dialog: ^1.0.9
+  file_picker: ^4.6.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
