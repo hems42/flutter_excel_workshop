@@ -13,6 +13,7 @@ class EshActivityIndex {
   late String _hastaAdi;
   late String _hastaSoyadi;
   late String _hastaTcKimlikNo;
+  late String _hastaCinsiyet;
   late String _hastaYakiniAdi;
   late String _hastaYakiniSoyadi;
   late String _hastaYakinlikDerecesi;
@@ -51,6 +52,10 @@ class EshActivityIndex {
 
   String get hastaSoyadi => _hastaSoyadi;
   set hastaSoyadi(String hastaSoyadi) => _hastaSoyadi = hastaSoyadi;
+
+  String get hastaCinsiyet => _hastaCinsiyet;
+  set hastaCinsiyet(String hastaCinsiyet) =>
+      _hastaCinsiyet = hastaCinsiyet;
 
   String get hastaTcKimlikNo => _hastaTcKimlikNo;
   set hastaTcKimlikNo(String hastaTcKimlikNo) =>

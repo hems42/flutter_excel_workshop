@@ -1,6 +1,8 @@
+import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_excel_workshop/esh_activity_index.dart';
+import 'package:flutter_excel_workshop/excel_manager.dart';
 import 'package:flutter_excel_workshop/pdf_manager.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
@@ -84,26 +86,26 @@ class _MyHomePageState extends State<MyHomePage> {
               for (int i = 0; i < 50; i++) {
                 indexList.add(a.getEshModel()..hastaTcKimlikNo = "00000000$i");
               }
+ ProgressDialog pd = ProgressDialog(context: context);
+         pd.show(max: 100, msg: "Kayıtlar Okunuyor...",
+         completed: Completed(
+          completedMsg: "Dosya Okunma Başarılı...",
+          completionDelay: 2000
+         ));
+               ExcelManager excelManager = ExcelManager();
 
-             FilePickerResult? result = await FilePicker.platform.pickFiles();
+              await excelManager.getEshActivityIndexListFromExcelFile(onProgress: (progress) {
+                pd.update(value:  progress);
+               }).then((value) => print("okunan satır sayısı : ${value?.length??0}"));
 
-if (result != null) {
-  PlatformFile file = result.files.first;
-
-  print(file.name);
-  print(file.bytes);
-  print(file.size);
-  print(file.extension);
-  print(file.path);
-} else {
-  // User canceled the picker
-}
+        
+        
 
               /* await a.saveAllPdf(
                   folderName: "indexSonuçlarıKlasörü",
                   allActivtyIndex: indexList,
                   onProgress: (progress) =>
-                 // pd.update(value:  progress));
+                  pd.update(value:  progress))
                       print("anlık dosya sayısı $progress"));*/
             }),
       ),
