@@ -64,12 +64,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late ProgressDialog pd;
+  bool isOpenDialog = false;
+  int inProgress = 0;
   double arttir(double i) {
     return i;
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    pd = ProgressDialog(context: context);
+
     return Scaffold(
       body: Center(
         child: ElevatedButton(
@@ -78,28 +88,17 @@ class _MyHomePageState extends State<MyHomePage> {
               var a = PdfManager(context: context);
 
               await a.populateInstances();
-              var document =
-                  a.getPdfDocumentByEshActivityIndex(a.getEshModel());
 
-              List<EshActivityIndex> indexList = [];
+              ExcelManager excelManager = ExcelManager(context);
 
-              for (int i = 0; i < 50; i++) {
-                indexList.add(a.getEshModel()..hastaTcKimlikNo = "00000000$i");
-              }
- ProgressDialog pd = ProgressDialog(context: context);
-         pd.show(max: 100, msg: "Kayıtlar Okunuyor...",
-         completed: Completed(
-          completedMsg: "Dosya Okunma Başarılı...",
-          completionDelay: 2000
-         ));
-               ExcelManager excelManager = ExcelManager();
+              await excelManager
+                  .getEshActivityIndexListFromExcelFile()
+                  .then((value) async {
+               await a.saveAllPdf(
+                    allActivtyIndex: value??[], folderName: "index Dosyaları");
 
-              await excelManager.getEshActivityIndexListFromExcelFile(onProgress: (progress) {
-                pd.update(value:  progress);
-               }).then((value) => print("okunan satır sayısı : ${value?.length??0}"));
-
-        
-        
+                print("okunan satır sayısı : ${value?.length ?? 0}");
+              });
 
               /* await a.saveAllPdf(
                   folderName: "indexSonuçlarıKlasörü",
@@ -110,6 +109,34 @@ class _MyHomePageState extends State<MyHomePage> {
             }),
       ),
     );
+  }
+
+  startProgress() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Container(
+          alignment: Alignment.center,
+          child: Center(
+            child: CircularProgressIndicator(
+                color: Colors.red, value: inProgress.toDouble()),
+          ),
+        );
+      },
+    );
+  }
+
+  showDiaolgg() {
+    pd.show(
+        progressType: ProgressType.valuable,
+        max: 100,
+        msg: "Kayıtlar Okunuyor...",
+        completed: Completed(
+            completedMsg: "Dosya Okunma Başarılı...", completionDelay: 2000));
+  }
+
+  update() {
+    pd.update(value: inProgress);
   }
 
   Future<void> createExcel() async {
