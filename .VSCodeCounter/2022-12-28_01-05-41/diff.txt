@@ -1,0 +1,42 @@
+Date : 2022-12-28 01:05:41
+Directory : e:\flutter_projects\flutter_excel_workshop
+Total : 10 files,  815 codes, 18 comments, 118 blanks, all 951 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |          7 |        799 |         43 |        121 |        963 |
+| XML      |          1 |          9 |          0 |          1 |         10 |
+| YAML     |          2 |          7 |        -25 |         -4 |        -22 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                  | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                     |         10 |        815 |         18 |        118 |        951 |
+| android                                                                                               |          1 |          9 |          0 |          1 |         10 |
+| android\app                                                                                           |          1 |          9 |          0 |          1 |         10 |
+| android\app\src                                                                                       |          1 |          9 |          0 |          1 |         10 |
+| android\app\src\main                                                                                  |          1 |          9 |          0 |          1 |         10 |
+| lib                                                                                                   |          7 |        799 |         43 |        121 |        963 |
+| lib\cutom_components                                                                                  |          1 |        110 |          4 |          9 |        123 |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                              | language | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| e:\flutter_projects\flutter_excel_workshop\analysis_options.yaml                                      | YAML     |         -3 |        -23 |         -4 |        -30 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\AndroidManifest.xml                   | XML      |          9 |          0 |          1 |         10 |
+| e:\flutter_projects\flutter_excel_workshop\lib\circle_progre_bar.dart                                 | Dart     |         48 |          0 |          8 |         56 |
+| e:\flutter_projects\flutter_excel_workshop\lib\cutom_components\custom_circle_progress_indicator.dart | Dart     |        110 |          4 |          9 |        123 |
+| e:\flutter_projects\flutter_excel_workshop\lib\dene_main.dart                                         | Dart     |        301 |         18 |         24 |        343 |
+| e:\flutter_projects\flutter_excel_workshop\lib\esh_activity_index.dart                                | Dart     |         22 |          0 |          3 |         25 |
+| e:\flutter_projects\flutter_excel_workshop\lib\excel_manager.dart                                     | Dart     |        180 |          4 |         39 |        223 |
+| e:\flutter_projects\flutter_excel_workshop\lib\main.dart                                              | Dart     |       -460 |        -88 |       -202 |       -750 |
+| e:\flutter_projects\flutter_excel_workshop\lib\pdf_manager.dart                                       | Dart     |        598 |        105 |        240 |        943 |
+| e:\flutter_projects\flutter_excel_workshop\pubspec.yaml                                               | YAML     |         10 |         -2 |          0 |          8 |
+| Total                                                                                                 |          |        815 |         18 |        118 |        951 |
++-------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

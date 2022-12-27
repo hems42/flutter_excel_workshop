@@ -1,0 +1,105 @@
+Date : 2022-12-28 01:05:41
+Directory : e:\flutter_projects\flutter_excel_workshop
+Total : 41 files,  2514 codes, 307 comments, 508 blanks, all 3329 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| Dart       |          8 |      1,471 |        155 |        386 |      2,012 |
+| XML        |         10 |        475 |         48 |         13 |        536 |
+| JSON       |          4 |        248 |          0 |          4 |        252 |
+| C++        |          6 |         95 |         27 |         39 |        161 |
+| Groovy     |          3 |         89 |          5 |         22 |        116 |
+| YAML       |          1 |         40 |         53 |         15 |        108 |
+| Swift      |          4 |         38 |          3 |         12 |         53 |
+| HTML       |          1 |         37 |         16 |          6 |         59 |
+| Markdown   |          2 |         13 |          0 |          9 |         22 |
+| Properties |          2 |          8 |          0 |          2 |         10 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |         41 |      2,514 |        307 |        508 |      3,329 |
+| android                                                                                                  |         12 |        168 |         51 |         34 |        253 |
+| android\app                                                                                              |          8 |        125 |         51 |         23 |        199 |
+| android\app\src                                                                                          |          7 |         71 |         46 |         10 |        127 |
+| android\app\src\debug                                                                                    |          1 |          4 |          4 |          1 |          9 |
+| android\app\src\main                                                                                     |          5 |         63 |         38 |          8 |        109 |
+| android\app\src\main\res                                                                                 |          4 |         26 |         32 |          6 |         64 |
+| android\app\src\main\res\drawable                                                                        |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\drawable-v21                                                                    |          1 |          4 |          7 |          2 |         13 |
+| android\app\src\main\res\values                                                                          |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\main\res\values-night                                                                    |          1 |          9 |          9 |          1 |         19 |
+| android\app\src\profile                                                                                  |          1 |          4 |          4 |          1 |          9 |
+| android\gradle                                                                                           |          1 |          5 |          0 |          1 |          6 |
+| android\gradle\wrapper                                                                                   |          1 |          5 |          0 |          1 |          6 |
+| ios                                                                                                      |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner                                                                                               |          7 |        222 |          2 |          9 |        233 |
+| ios\Runner\Assets.xcassets                                                                               |          3 |        148 |          0 |          4 |        152 |
+| ios\Runner\Assets.xcassets\AppIcon.appiconset                                                            |          1 |        122 |          0 |          1 |        123 |
+| ios\Runner\Assets.xcassets\LaunchImage.imageset                                                          |          2 |         26 |          0 |          3 |         29 |
+| ios\Runner\Base.lproj                                                                                    |          2 |         61 |          2 |          2 |         65 |
+| lib                                                                                                      |          7 |      1,457 |        145 |        379 |      1,981 |
+| lib\cutom_components                                                                                     |          1 |        110 |          4 |          9 |        123 |
+| linux                                                                                                    |          5 |         94 |         27 |         38 |        159 |
+| linux\flutter                                                                                            |          2 |          8 |          9 |         11 |         28 |
+| macos                                                                                                    |          5 |        437 |          3 |         12 |        452 |
+| macos\Flutter                                                                                            |          1 |          6 |          3 |          4 |         13 |
+| macos\Runner                                                                                             |          4 |        431 |          0 |          8 |        439 |
+| macos\Runner\Assets.xcassets                                                                             |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Assets.xcassets\AppIcon.appiconset                                                          |          1 |         68 |          0 |          1 |         69 |
+| macos\Runner\Base.lproj                                                                                  |          1 |        343 |          0 |          1 |        344 |
+| test                                                                                                     |          1 |         14 |         10 |          7 |         31 |
+| web                                                                                                      |          2 |         72 |         16 |          7 |         95 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                 | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| e:\flutter_projects\flutter_excel_workshop\README.md                                                     | Markdown   |         10 |          0 |          7 |         17 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\build.gradle                                      | Groovy     |         54 |          5 |         13 |         72 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\debug\AndroidManifest.xml                     | XML        |          4 |          4 |          1 |          9 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\AndroidManifest.xml                      | XML        |         37 |          6 |          2 |         45 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\res\drawable-v21\launch_background.xml   | XML        |          4 |          7 |          2 |         13 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\res\drawable\launch_background.xml       | XML        |          4 |          7 |          2 |         13 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\res\values-night\styles.xml              | XML        |          9 |          9 |          1 |         19 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\main\res\values\styles.xml                    | XML        |          9 |          9 |          1 |         19 |
+| e:\flutter_projects\flutter_excel_workshop\android\app\src\profile\AndroidManifest.xml                   | XML        |          4 |          4 |          1 |          9 |
+| e:\flutter_projects\flutter_excel_workshop\android\build.gradle                                          | Groovy     |         27 |          0 |          5 |         32 |
+| e:\flutter_projects\flutter_excel_workshop\android\gradle.properties                                     | Properties |          3 |          0 |          1 |          4 |
+| e:\flutter_projects\flutter_excel_workshop\android\gradle\wrapper\gradle-wrapper.properties              | Properties |          5 |          0 |          1 |          6 |
+| e:\flutter_projects\flutter_excel_workshop\android\settings.gradle                                       | Groovy     |          8 |          0 |          4 |         12 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\AppDelegate.swift                                  | Swift      |         12 |          0 |          2 |         14 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json   | JSON       |        122 |          0 |          1 |        123 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json | JSON       |         23 |          0 |          1 |         24 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Assets.xcassets\LaunchImage.imageset\README.md     | Markdown   |          3 |          0 |          2 |          5 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Base.lproj\LaunchScreen.storyboard                 | XML        |         36 |          1 |          1 |         38 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Base.lproj\Main.storyboard                         | XML        |         25 |          1 |          1 |         27 |
+| e:\flutter_projects\flutter_excel_workshop\ios\Runner\Runner-Bridging-Header.h                           | C++        |          1 |          0 |          1 |          2 |
+| e:\flutter_projects\flutter_excel_workshop\lib\circle_progre_bar.dart                                    | Dart       |         48 |          0 |          8 |         56 |
+| e:\flutter_projects\flutter_excel_workshop\lib\cutom_components\custom_circle_progress_indicator.dart    | Dart       |        110 |          4 |          9 |        123 |
+| e:\flutter_projects\flutter_excel_workshop\lib\dene_main.dart                                            | Dart       |        301 |         18 |         24 |        343 |
+| e:\flutter_projects\flutter_excel_workshop\lib\esh_activity_index.dart                                   | Dart       |        146 |          6 |         42 |        194 |
+| e:\flutter_projects\flutter_excel_workshop\lib\excel_manager.dart                                        | Dart       |        180 |          4 |         39 |        223 |
+| e:\flutter_projects\flutter_excel_workshop\lib\main.dart                                                 | Dart       |         72 |          8 |         16 |         96 |
+| e:\flutter_projects\flutter_excel_workshop\lib\pdf_manager.dart                                          | Dart       |        600 |        105 |        241 |        946 |
+| e:\flutter_projects\flutter_excel_workshop\linux\flutter\generated_plugin_registrant.cc                  | C++        |          3 |          4 |          5 |         12 |
+| e:\flutter_projects\flutter_excel_workshop\linux\flutter\generated_plugin_registrant.h                   | C++        |          5 |          5 |          6 |         16 |
+| e:\flutter_projects\flutter_excel_workshop\linux\main.cc                                                 | C++        |          5 |          0 |          2 |          7 |
+| e:\flutter_projects\flutter_excel_workshop\linux\my_application.cc                                       | C++        |         74 |         11 |         20 |        105 |
+| e:\flutter_projects\flutter_excel_workshop\linux\my_application.h                                        | C++        |          7 |          7 |          5 |         19 |
+| e:\flutter_projects\flutter_excel_workshop\macos\Flutter\GeneratedPluginRegistrant.swift                 | Swift      |          6 |          3 |          4 |         13 |
+| e:\flutter_projects\flutter_excel_workshop\macos\Runner\AppDelegate.swift                                | Swift      |          8 |          0 |          2 |         10 |
+| e:\flutter_projects\flutter_excel_workshop\macos\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json | JSON       |         68 |          0 |          1 |         69 |
+| e:\flutter_projects\flutter_excel_workshop\macos\Runner\Base.lproj\MainMenu.xib                          | XML        |        343 |          0 |          1 |        344 |
+| e:\flutter_projects\flutter_excel_workshop\macos\Runner\MainFlutterWindow.swift                          | Swift      |         12 |          0 |          4 |         16 |
+| e:\flutter_projects\flutter_excel_workshop\pubspec.yaml                                                  | YAML       |         40 |         53 |         15 |        108 |
+| e:\flutter_projects\flutter_excel_workshop\test\widget_test.dart                                         | Dart       |         14 |         10 |          7 |         31 |
+| e:\flutter_projects\flutter_excel_workshop\web\index.html                                                | HTML       |         37 |         16 |          6 |         59 |
+| e:\flutter_projects\flutter_excel_workshop\web\manifest.json                                             | JSON       |         35 |          0 |          1 |         36 |
+| Total                                                                                                    |            |      2,514 |        307 |        508 |      3,329 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
