@@ -1,20 +1,6 @@
-import 'package:excel/excel.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_excel_workshop/esh_activity_index.dart';
 import 'package:flutter_excel_workshop/excel_manager.dart';
 import 'package:flutter_excel_workshop/pdf_manager.dart';
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
-import 'package:universal_html/html.dart' show AnchorElement;
-import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
-import 'dart:convert';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-
-import 'circle_progre_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,33 +48,63 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red)),
-            child: Text('Listeyi İşle !!!'),
-            onPressed: () async {
-              var pdfManager = PdfManager(context: context);
+      backgroundColor: Colors.amber,
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Bartel Yaşam Aktivite Zamazingosu",
+                  style: TextStyle(fontSize: 20, color: Colors.black)),
+              SizedBox(
+                height: 30,
+              ),
+              Image.asset("assets/images/launch_icon_2.png"),
+              SizedBox(
+                height: 60,
+              ),
+              SizedBox(
+                height: 50,
+                width: 250,
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.grey)),
+                    child: Text(
+                      'Dosya Seç !!!',
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    ),
+                    onPressed: () async {
+                      var pdfManager = PdfManager(context: context);
 
-              await pdfManager.populateInstances();
+                      await pdfManager.populateInstances();
 
-              ExcelManager excelManager = ExcelManager(context);
+                      ExcelManager excelManager = ExcelManager(context);
 
-              await excelManager
-                  .getEshActivityIndexListFromExcelFile()
-                  .then((value) async {
-                await pdfManager.saveAllPdf(
-                    onProgress: (progress) {
-                      print("oluşturulan pdf anlık yüzdesi : $progress");
-                    },
-                    allActivtyIndex: value ?? [],
-                    folderName: "Bartel Aktivite Pdf Dosyaları");
+                      await excelManager
+                          .getEshActivityIndexListFromExcelFile()
+                          .then((value) async {
+                        print("okunan indeks sayısı : $value");
 
-                await excelManager.exportToExcelList(value ?? [], onProgress: (progress) {
-                  print("oluşturulan excel satır anlık yüzdesi : $progress");
-                });
-              });
-            }),
+                        await pdfManager.saveAllPdf(
+                            onProgress: (progress) {
+                              print(
+                                  "oluşturulan pdf anlık yüzdesi : $progress");
+                            },
+                            allActivtyIndex: value ?? [],
+                            folderName: "Bartel Aktivite Pdf Dosyaları");
+
+                        await excelManager.exportToExcelList(value ?? [],
+                            onProgress: (progress) {
+                          print(
+                              "oluşturulan excel satır anlık yüzdesi : $progress");
+                        });
+                      });
+                    }),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
