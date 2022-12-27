@@ -1,16 +1,3 @@
 # flutter_excel_workshop
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Bu Projeyi bize iş diye iteledikleri bartel aktivite yaşam index listesini excel dosyasından okuyup istediğim çıktıları versin diye yazdım. Açıkçası sevmiyorum tek tıkla herşeyi halletmek varken uzun uzun uğraşmayı.... Bunun için günlerce ve binlerce satır kod yazmam gerekse bile...
