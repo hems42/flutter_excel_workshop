@@ -942,35 +942,4 @@ class PdfManager {
     return allFiles;
   }
 
-  EshActivityIndex getEshModel() {
-    EshActivityIndex activityIndex = EshActivityIndex();
-
-    activityIndex.hastaAdi = "NAZLI";
-    activityIndex.hastaSoyadi = "YANDAN YEMİŞ";
-    activityIndex.hastaTcKimlikNo = "44444444444";
-    activityIndex.hastaYakiniAdi = "HACER";
-    activityIndex.hastaYakiniSoyadi = "ARKADAN VERMİŞ";
-    activityIndex.hastaYakinlikDerecesi = "SEVGİLİSİ";
-    activityIndex.islemTarih = "21.12.2022";
-    activityIndex.islemSaati = "14:25";
-    activityIndex.hastaAdresIl = "KONYA";
-    activityIndex.hastaAdresIlce = "KARAPINAR";
-    activityIndex.hastaAdresMahalle = "ZAFER";
-    activityIndex.hastaAdresSokakCadde = "VERENGÜL";
-    activityIndex.hastaAdresKapiNo = "31";
-    activityIndex.hastaAdresAciklama = "SEVİŞME ADRESLERİ";
-    activityIndex.hastaTelNo = "0 535 331 31 31";
-    activityIndex.beslenmeParametresi = 10;
-    activityIndex.yikanmaParametresi = 5;
-    activityIndex.kendineBakimParametresi = 5;
-    activityIndex.giyipSoyunmaParametresi = 10;
-    activityIndex.bagirsakBakimiParametresi = 10;
-    activityIndex.mesaneBakimiParametresi = 10;
-    activityIndex.tuvaletKullanimiParametresi = 0;
-    activityIndex.tekerlekliSandalyedenTransferParametresi = 0;
-    activityIndex.mobiliteParametresi = 0;
-    activityIndex.merdivenInipCikmaParametresi = 0;
-
-    return activityIndex;
-  }
 }

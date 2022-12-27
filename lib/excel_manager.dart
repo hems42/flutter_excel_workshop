@@ -1,7 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:universal_html/html.dart' show AnchorElement;
 import 'esh_activity_index.dart';
 
 class ExcelManager {
@@ -90,12 +96,13 @@ class ExcelManager {
               element.elementAt(32)!.value;
 
           allIndexlist.add(eshActivityIndex);
-          print("anlık index $index");
+
+          
           //---------------
           if (onProgress != null) {
             int _progres = (((index + 1) * 100) / length).ceil();
             var nn = ((index * 100) / length);
-          //  print("index $index uzunluk $length $_progres sonuc $nn");
+            //  print("index $index uzunluk $length $_progres sonuc $nn");
 
             onProgress.call(_progres);
 
@@ -105,12 +112,111 @@ class ExcelManager {
 
         }
         index++;
-       
       }
 
       return allIndexlist;
     } else {
       return null;
+    }
+  }
+
+  void _baslikEkle(Sheet sheet) {
+    int row = 0;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: row))
+        .value = 'IL';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: row))
+        .value = 'SAĞLIK TESİSİ BİRİM ADI';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: row))
+        .value = 'HASTANIN ADI SOYADI';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: row))
+        .value = 'HASTA KİMLİK NO';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row))
+        .value = 'HASTA ADRESİ';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 5, rowIndex: row))
+        .value = 'GÜNLÜK YAŞAM AKTİVİTE TOPLAM PUANI';
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: row))
+        .value = 'BAĞIMLILIK DURUMU';
+  }
+
+  void _satirEkle(Sheet sheet, int row, EshActivityIndex activityIndex) {
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: row))
+        .value = activityIndex.eshEkipIl;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 1, rowIndex: row))
+        .value = activityIndex.eshEkipBirimAdi;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 2, rowIndex: row))
+        .value = activityIndex.hastaAdiSoyadi;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 3, rowIndex: row))
+        .value = activityIndex.hastaTcKimlikNo;
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 4, rowIndex: row))
+        .value = activityIndex.hastaAdresiDerle();
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 5, rowIndex: row))
+        .value = activityIndex.indexToplamPuanHesapla();
+
+    sheet
+        .cell(CellIndex.indexByColumnRow(columnIndex: 6, rowIndex: row))
+        .value = activityIndex.indexDurumDegerlendir();
+  }
+
+  Future<void> exportToExcelList(List<EshActivityIndex> allEshIndeks,
+      {Function(int progress)? onProgress}) async {
+    final excel = Excel.createExcel();
+    final Sheet sheet = excel[excel.getDefaultSheet()!];
+
+    int length = allEshIndeks.length;
+
+    _baslikEkle(sheet);
+
+    for (var row = 0; row < allEshIndeks.length; row++) {
+      EshActivityIndex aktifIndeks = allEshIndeks.elementAt(row);
+      _satirEkle(sheet, row + 1, aktifIndeks);
+      if (onProgress != null) {
+        onProgress.call(((row * 100) / length).round());
+        
+      }
+    }
+
+    final List<int> bytes = excel.save() ?? [];
+
+    if (kIsWeb) {
+      AnchorElement(
+          href:
+              'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')
+        ..setAttribute('download',
+            'Bartel_Yaşam_Aktiviteleri_İndeksleri_Özet_Listesi.xlsx')
+        ..click();
+    } else {
+      final String path = (await getExternalStorageDirectory())!.path;
+      final String fileName = Platform.isWindows
+          ? '$path\\Bartel_Yaşam_Aktiviteleri_İndeksleri_Özet_Listesi.xlsx'
+          : '$path/Bartel_Yaşam_Aktiviteleri_İndeksleri_Özet_Listesi.xlsx';
+      final File file = File(fileName);
+      await file.writeAsBytes(bytes, flush: true);
+      OpenFile.open(fileName);
     }
   }
 }

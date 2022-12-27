@@ -78,7 +78,7 @@ String get eshEkipBirimAdi => _eshEkipBirimAdi;
   set hastaYakinlikDerecesi(String hastaYakinlikDerecesi) =>
       _hastaYakinlikDerecesi = hastaYakinlikDerecesi;
 
-  String get islemTarih => _islemTarih;
+  String get islemTarih => _islemTarih.substring(0,10);
   set islemTarih(String islemTarih) => _islemTarih = islemTarih;
 
   String get islemSaati => _islemSaati;
@@ -186,7 +186,7 @@ String get eshEkipBirimAdi => _eshEkipBirimAdi;
   }
 
   String hastaAdresiDerle() {
-    String adres = '$hastaAdresMahalle mah.  $hastaAdresSokakCadde  sok/cad.   no : $hastaAdresKapiNo \n'
+    String adres = '$hastaAdresMahalle MAH.  $hastaAdresSokakCadde  SOK/CAD.   NO : $hastaAdresKapiNo \n'
         '$hastaAdresIl / $hastaAdresIlce ';
     return adres;
   }
