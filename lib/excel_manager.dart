@@ -2,19 +2,15 @@ import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sn_progress_dialog/completed.dart';
-import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'esh_activity_index.dart';
 
 class ExcelManager {
   final fileName = '';
   final sheetName = 'indeks_veri_tüm_listesi';
   late BuildContext _context;
-  late ProgressDialog _pd;
 
   ExcelManager(BuildContext context) {
     _context = context;
-    _pd = ProgressDialog(context: _context);
   }
 
   Future<Excel?> selectExcelFile() async {
@@ -25,7 +21,7 @@ class ExcelManager {
     Excel? excel;
     if (result != null) {
       PlatformFile file = result.files.first;
-      //var bytess = await file.bytes;
+
       var bytess = await File(file.path ?? '').readAsBytes();
       excel = Excel.decodeBytes((bytess.buffer.asInt8List()));
     }
@@ -40,22 +36,14 @@ class ExcelManager {
       List<EshActivityIndex> allIndexlist = [];
       EshActivityIndex eshActivityIndex;
       int index = 0;
-      int length = excel.tables[sheetName]!.maxRows;
-
-      /* if (length > 0) {
-        if (!_pd.isOpen()) {
-          _pd.show(
-              max: 100,
-              msg: "Kayıtlar Okunuyor...",
-              completed: Completed(
-                  completedMsg: "Dosya Okunma Başarılı...",
-                  completionDelay: 2000));
-        }
-      }*/
+      int length = excel.tables[sheetName]!.rows.length;
 
       for (var element in excel.tables[sheetName]!.rows) {
         if (index > 0) {
           eshActivityIndex = EshActivityIndex();
+          if (element.elementAt(2) == null) {
+            break;
+          }
 
           eshActivityIndex.hastaAdi = element.elementAt(2)!.value.toString();
           eshActivityIndex.hastaSoyadi = element.elementAt(3)!.value.toString();
@@ -107,8 +95,8 @@ class ExcelManager {
           if (onProgress != null) {
             int _progres = (((index + 1) * 100) / length).ceil();
             var nn = ((index * 100) / length);
-            print("index $index uzunluk $length $_progres sonuc $nn");
-            // _pd.update(value: _progres);
+          //  print("index $index uzunluk $length $_progres sonuc $nn");
+
             onProgress.call(_progres);
 
             //-------------
@@ -117,6 +105,7 @@ class ExcelManager {
 
         }
         index++;
+       
       }
 
       return allIndexlist;

@@ -94,59 +94,72 @@ class _MyHomePageState extends State<MyHomePage> {
               await excelManager
                   .getEshActivityIndexListFromExcelFile()
                   .then((value) async {
-               await a.saveAllPdf(
-                    allActivtyIndex: value??[], folderName: "index Dosyaları");
+                await a.saveAllPdf(
+                    onProgress: (progress) {
+                      print("anlık yüzde  $progress");
+                    },
+                    allActivtyIndex: value ?? [],
+                    folderName: "index Dosyaları");
 
-                print("okunan satır sayısı : ${value?.length ?? 0}");
+                await createExcel(value ?? []);
               });
 
-              /* await a.saveAllPdf(
+              /*  await a.saveAllPdf(
                   folderName: "indexSonuçlarıKlasörü",
-                  allActivtyIndex: indexList,
+                  allActivtyIndex: ,
                   onProgress: (progress) =>
                   pd.update(value:  progress))
                       print("anlık dosya sayısı $progress"));*/
+              createExcel([]);
             }),
       ),
     );
   }
 
-  startProgress() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Container(
-          alignment: Alignment.center,
-          child: Center(
-            child: CircularProgressIndicator(
-                color: Colors.red, value: inProgress.toDouble()),
-          ),
-        );
-      },
-    );
-  }
+  Future<void> createExcel(List<EshActivityIndex> allEshIndeks) async {
+    final Workbook workbook = Workbook(1);
+    final Worksheet sheet = workbook.worksheets[0];
 
-  showDiaolgg() {
-    pd.show(
-        progressType: ProgressType.valuable,
-        max: 100,
-        msg: "Kayıtlar Okunuyor...",
-        completed: Completed(
-            completedMsg: "Dosya Okunma Başarılı...", completionDelay: 2000));
-  }
-
-  update() {
-    pd.update(value: inProgress);
-  }
-
-  Future<void> createExcel() async {
-    final Workbook workbook = Workbook(2);
-    final Worksheet sheet = workbook.worksheets[1];
     int i = 1;
-    sheet.getRangeByIndex(2, 1, 10000, 3).cells.forEach((element) {
-      element.setText("ananin ami $i");
+
+    Range rangeIl = sheet.getRangeByName('A$i');
+    Range rangeSaglikBirimAdi = sheet.getRangeByName('B$i');
+    Range rangeHastaAdiSoyadi = sheet.getRangeByName('C$i');
+    Range rangeHastaKimlikno = sheet.getRangeByName('D$i');
+    Range rangeHastaAktivitePuani = sheet.getRangeByName('F$i');
+    Range rangeHastaAdresi = sheet.getRangeByName('E$i');
+    Range rangeBagimlilikDurumu = sheet.getRangeByName('G$i');
+
+    rangeIl.setText("IL");
+    rangeSaglikBirimAdi.setText("SAĞLIK TESİSİ BİRİM ADI");
+    rangeHastaAdiSoyadi.setText("HASTANIN ADI SOYADI");
+    rangeHastaKimlikno.setText("HASTA KİMLİK NO");
+    rangeHastaAdresi.setText("HASTA ADRESİ");
+    rangeHastaAktivitePuani.setText("GÜNLÜK YAŞAM AKTİVİTE TOPLAM PUANI");
+    rangeBagimlilikDurumu.setText("BAĞIMLILIK DURUMU");
+
+    for (int a = 0; a < allEshIndeks.length; a++) {
       i++;
-    });
+
+      EshActivityIndex activityIndex = allEshIndeks.elementAt(a);
+      print("anlık i $i anlık hasta adı ${activityIndex.hastaAdiSoyadi}");
+      rangeIl = sheet.getRangeByName('A$i');
+      rangeSaglikBirimAdi = sheet.getRangeByName('B$i');
+      rangeHastaAdiSoyadi = sheet.getRangeByName('C$i');
+      rangeHastaKimlikno = sheet.getRangeByName('D$i');
+      rangeHastaAktivitePuani = sheet.getRangeByName('F$i');
+      rangeHastaAdresi = sheet.getRangeByName('E$i');
+      rangeBagimlilikDurumu = sheet.getRangeByName('G$i');
+    
+      rangeIl.setText(activityIndex.eshEkipIl);
+      rangeSaglikBirimAdi.setText(activityIndex.eshEkipBirimAdi);
+      rangeHastaAdiSoyadi.setText(activityIndex.hastaAdiSoyadi);
+      rangeHastaKimlikno.setText(activityIndex.hastaTcKimlikNo);
+      rangeHastaAdresi.setText(activityIndex.hastaAdresiDerle());
+      rangeHastaAktivitePuani
+          .setText(activityIndex.indexToplamPuanHesapla().toString());
+      rangeBagimlilikDurumu.setText(activityIndex.indexDurumDegerlendir());
+    }
 
     final List<int> bytes = workbook.saveAsStream();
     workbook.dispose();
@@ -155,12 +168,12 @@ class _MyHomePageState extends State<MyHomePage> {
       AnchorElement(
           href:
               'data:application/octet-stream;charset=utf-16le;base64,${base64.encode(bytes)}')
-        ..setAttribute('download', 'Output.xlsx')
+        ..setAttribute('download', 'ÖzetListe.xlsx')
         ..click();
     } else {
-      final String path = (await getApplicationSupportDirectory()).path;
+      final String path = (await getExternalStorageDirectory())!.path;
       final String fileName =
-          Platform.isWindows ? '$path\\Output.xlsx' : '$path/Output.xlsx';
+          Platform.isWindows ? '$path\\ÖzetListe.xlsx' : '$path/ÖzetListe.xlsx';
       final File file = File(fileName);
       await file.writeAsBytes(bytes, flush: true);
       OpenFile.open(fileName);

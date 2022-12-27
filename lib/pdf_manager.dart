@@ -923,7 +923,7 @@ class PdfManager {
       //  document.dispose();
       await file.writeAsBytes(bytes, flush: true);
       if (onProgress != null) {
-        onProgress.call(((b*100)/length).round());
+        onProgress.call(((b * 100) / length).round());
         b++;
       }
     }
@@ -936,6 +936,7 @@ class PdfManager {
     for (var element in allActivities) {
       allFiles.add(
           File('$folderName/${element.hastaAdi} ${element.hastaSoyadi}.pdf'));
+ 
     }
 
     return allFiles;

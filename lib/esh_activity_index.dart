@@ -45,13 +45,19 @@ class EshActivityIndex {
   // -- getter setter
 
   String get eshEkipIl => _eshEkipIl;
-  set eshEkipIl(String eshEkipIl) => _eshEkipBirimAdi = eshEkipIl;
+  set eshEkipIl(String eshEkipIl) => _eshEkipIl = eshEkipIl;
+
+String get eshEkipBirimAdi => _eshEkipBirimAdi;
+  set eshEkipBirimAdi(String eshEkipBirimAdi) => _eshEkipBirimAdi = eshEkipBirimAdi;
+
 
   String get hastaAdi => _hastaAdi;
   set hastaAdi(String hastaAdi) => _hastaAdi = hastaAdi;
 
   String get hastaSoyadi => _hastaSoyadi;
   set hastaSoyadi(String hastaSoyadi) => _hastaSoyadi = hastaSoyadi;
+
+  String get hastaAdiSoyadi => '$_hastaAdi $_hastaSoyadi';
 
   String get hastaCinsiyet => _hastaCinsiyet;
   set hastaCinsiyet(String hastaCinsiyet) =>
