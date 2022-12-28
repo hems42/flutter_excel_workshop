@@ -80,6 +80,8 @@ flutter:
    - assets/images/launch_icon_1.png
    - assets/images/launch_icon_2.png
    - assets/images/launch_icon_3.png
+   - assets/images/launch_icon_4.jpg
+   - assets/images/launch_icon_5.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

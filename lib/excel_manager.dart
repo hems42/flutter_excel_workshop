@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,11 +12,6 @@ import 'esh_activity_index.dart';
 class ExcelManager {
   final fileName = '';
   final sheetName = 'indeks_veri_tüm_listesi';
-  late BuildContext _context;
-
-  ExcelManager(BuildContext context) {
-    _context = context;
-  }
 
   Future<Excel?> selectExcelFile() async {
     await FilePicker.platform.clearTemporaryFiles();
@@ -35,7 +29,8 @@ class ExcelManager {
   }
 
   Future<List<EshActivityIndex>?> getEshActivityIndexListFromExcelFile(
-      {Function(int progress)? onProgress}) async {
+      {Function(int progress)? onProgress,
+      Function(bool isStarted)? isStarted}) async {
     var excel = await selectExcelFile();
 
     if (excel != null) {
@@ -43,6 +38,10 @@ class ExcelManager {
       EshActivityIndex eshActivityIndex;
       int index = 0;
       int length = excel.tables[sheetName]!.rows.length;
+
+      if (isStarted != null) {
+        isStarted.call(true);
+      }
 
       for (var element in excel.tables[sheetName]!.rows) {
         if (index > 0) {
@@ -97,13 +96,9 @@ class ExcelManager {
 
           allIndexlist.add(eshActivityIndex);
 
-          
           //---------------
           if (onProgress != null) {
             int _progres = (((index + 1) * 100) / length).ceil();
-            var nn = ((index * 100) / length);
-            //  print("index $index uzunluk $length $_progres sonuc $nn");
-
             onProgress.call(_progres);
 
             //-------------
@@ -183,7 +178,9 @@ class ExcelManager {
   }
 
   Future<void> exportToExcelList(List<EshActivityIndex> allEshIndeks,
-      {Function(int progress)? onProgress}) async {
+      {Function(int progress)? onProgress,
+      Function(String createdFilePath)? createdFolderPath,
+      Function(bool isStared)? isStarted}) async {
     final excel = Excel.createExcel();
     final Sheet sheet = excel[excel.getDefaultSheet()!];
 
@@ -191,12 +188,15 @@ class ExcelManager {
 
     _baslikEkle(sheet);
 
+    if (isStarted != null) {
+      isStarted.call(true);
+    }
+
     for (var row = 0; row < allEshIndeks.length; row++) {
       EshActivityIndex aktifIndeks = allEshIndeks.elementAt(row);
       _satirEkle(sheet, row + 1, aktifIndeks);
       if (onProgress != null) {
         onProgress.call(((row * 100) / length).round());
-        
       }
     }
 
@@ -216,7 +216,10 @@ class ExcelManager {
           : '$path/Bartel_Yaşam_Aktiviteleri_İndeksleri_Özet_Listesi.xlsx';
       final File file = File(fileName);
       await file.writeAsBytes(bytes, flush: true);
-      OpenFile.open(fileName);
+      if (createdFolderPath != null) {
+        createdFolderPath.call(path);
+      }
+      //  OpenFile.open(fileName);
     }
   }
 }

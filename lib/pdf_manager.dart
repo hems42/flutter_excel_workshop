@@ -7,9 +7,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class PdfManager {
-  PdfManager({required this.context});
+  late BuildContext context;
 
-  BuildContext context;
+  setContext(BuildContext buildContext) {
+    context = buildContext;
+    isSetContext = true;
+  }
 
   String _fontPathArial = 'assets/fonts/arial.ttf';
   String _fontPathArialBold = 'assets/fonts/arial_bold.ttf';
@@ -21,6 +24,9 @@ class PdfManager {
   late final PdfFont _fontArialBold;
   late final PdfFont _fontArialNormal;
 
+  bool isPopulated = false;
+  bool isSetContext = false;
+
   Future<void> populateInstances() async {
     _fontTimesBold = await _getPdfFontFromAssets(
         assetsPath: _fontPathTimesBold, fontSize: 12.0);
@@ -30,6 +36,8 @@ class PdfManager {
 
     _fontArialNormal =
         await _getPdfFontFromAssets(assetsPath: _fontPathArial, fontSize: 9.0);
+
+    isPopulated = true;
   }
 
   Future<PdfFont> _getPdfFontFromAssets(
@@ -936,10 +944,8 @@ class PdfManager {
     for (var element in allActivities) {
       allFiles.add(
           File('$folderName/${element.hastaAdi} ${element.hastaSoyadi}.pdf'));
- 
     }
 
     return allFiles;
   }
-
 }
