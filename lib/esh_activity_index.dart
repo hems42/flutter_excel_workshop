@@ -1,3 +1,5 @@
+import 'package:flutter_excel_workshop/extensions/my_string_extension.dart';
+
 class EshActivityIndex {
   EshActivityIndex() {
     _eshEkipIl = "KONYA";
@@ -47,9 +49,9 @@ class EshActivityIndex {
   String get eshEkipIl => _eshEkipIl;
   set eshEkipIl(String eshEkipIl) => _eshEkipIl = eshEkipIl;
 
-String get eshEkipBirimAdi => _eshEkipBirimAdi;
-  set eshEkipBirimAdi(String eshEkipBirimAdi) => _eshEkipBirimAdi = eshEkipBirimAdi;
-
+  String get eshEkipBirimAdi => _eshEkipBirimAdi;
+  set eshEkipBirimAdi(String eshEkipBirimAdi) =>
+      _eshEkipBirimAdi = eshEkipBirimAdi;
 
   String get hastaAdi => _hastaAdi;
   set hastaAdi(String hastaAdi) => _hastaAdi = hastaAdi;
@@ -60,8 +62,7 @@ String get eshEkipBirimAdi => _eshEkipBirimAdi;
   String get hastaAdiSoyadi => '$_hastaAdi $_hastaSoyadi';
 
   String get hastaCinsiyet => _hastaCinsiyet;
-  set hastaCinsiyet(String hastaCinsiyet) =>
-      _hastaCinsiyet = hastaCinsiyet;
+  set hastaCinsiyet(String hastaCinsiyet) => _hastaCinsiyet = hastaCinsiyet;
 
   String get hastaTcKimlikNo => _hastaTcKimlikNo;
   set hastaTcKimlikNo(String hastaTcKimlikNo) =>
@@ -78,7 +79,7 @@ String get eshEkipBirimAdi => _eshEkipBirimAdi;
   set hastaYakinlikDerecesi(String hastaYakinlikDerecesi) =>
       _hastaYakinlikDerecesi = hastaYakinlikDerecesi;
 
-  String get islemTarih => _islemTarih.substring(0,10);
+  String get islemTarih => _islemTarih.substring(0, 10);
   set islemTarih(String islemTarih) => _islemTarih = islemTarih;
 
   String get islemSaati => _islemSaati;
@@ -186,8 +187,9 @@ String get eshEkipBirimAdi => _eshEkipBirimAdi;
   }
 
   String hastaAdresiDerle() {
-    String adres = '$hastaAdresMahalle MAH.  $hastaAdresSokakCadde  SOK/CAD.   NO : $hastaAdresKapiNo \n'
-        '$hastaAdresIl / $hastaAdresIlce ';
+    String adres =
+        '$hastaAdresAciklama :  $hastaAdresMahalle MAH.  $hastaAdresSokakCadde  ${hastaAdresSokakCadde.containNumber() == true ? 'SOKAK' : ''}  NO : $hastaAdresKapiNo \n'
+        '  -- $hastaAdresIl / $hastaAdresIlce ';
     return adres;
   }
 }
