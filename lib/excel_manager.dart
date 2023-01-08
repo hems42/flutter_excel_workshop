@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' show AnchorElement;
 import 'esh_activity_index.dart';
@@ -50,7 +49,10 @@ class ExcelManager {
             break;
           }
 
+          print('geçerli index : $index');
+
           eshActivityIndex.hastaAdi = element.elementAt(2)!.value.toString();
+
           eshActivityIndex.hastaSoyadi = element.elementAt(3)!.value.toString();
           eshActivityIndex.hastaTcKimlikNo =
               element.elementAt(1)!.value.toString();
